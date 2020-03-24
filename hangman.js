@@ -22,7 +22,6 @@ function appendWord(word) {
     for (i=0; i<word.length; i++) {
         let miniBox = document.createElement("div")
         document.getElementById("wordbox").appendChild(miniBox);
-        miniBox.append(word[i])
         miniBox.style.borderBottom = "3px solid black"
         miniBox.style.fontSize = "40px";
         miniBox.style.textAlign = "center";
@@ -31,7 +30,6 @@ function appendWord(word) {
         miniBox.style.float = "left";
         miniBox.style.marginRight = "10px";
         miniBox.className = word[i].toLowerCase();
-        miniBox.style.color = "white"
     }
 }
 
@@ -39,7 +37,10 @@ function changeColor(btn) {
     let letter = btn.innerHTML.toLowerCase();
     let words = document.getElementsByClassName(letter);
     for (i=0; i<words.length; i++) {
-        words[i].style.color = "black";
+        if (words[i].innerHTML == letter) {
+            return
+        }
+        words[i].append(letter)
     }
 }
 
