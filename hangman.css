@@ -1,4 +1,4 @@
-#letters {
+/* #letters {
     margin-top: 200px;
     float: left;
     width: 300px;
@@ -17,4 +17,31 @@
     top: 0px;
     right: 0px;
     margin-top: 200px;
+} */
+
+.myButtons {
+    position: relative;
+    width: 70px;
+    height: 50px;
+    color: #FFFFFF;
+    font-family: cursive;
+    font-size: 36px;
+    line-height: 45px;
+    background: #7A4675;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    margin-left:20px;
+    margin-top: 10px;
+}
+.guessWord{
+    font-size: 70px;
+    top: 250px;
+    left: 264px;
+}
+.hangMan{
+    position: absolute;
+    height: 120px;
+    width: 70px;
+    top: 350px;
+    left: 240px;
 }
