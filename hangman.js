@@ -1,4 +1,5 @@
 let guessWord = randomWord();
+let playerGuess = hiddenGuessWord();
 let myHangMan = new MyHangman("image/hang.png");
 let countClick = 0;
 let score = 0;
@@ -48,8 +49,10 @@ function MyHangman(url) {
 function checkLetter(buttonLetter) {
     if (guessWord.indexOf(buttonLetter) > -1) {
         let wordDict = checkNumOfOccurrences();
+        // console.log(wordDict)
         score += wordDict[buttonLetter];
         document.querySelector("p").innerHTML = "Score: " + score;
+        displayPlayerGuess(buttonLetter);
     }
     else {
         countClick += 1;
@@ -71,7 +74,7 @@ function checkNumOfOccurrences() {
     let wordFreqDict = {};
     for (let i = 0; i < guessWord.length; i++) {
         if (guessWord[i] in wordFreqDict)
-            wordFreqDict[guessWord[i]] = wordFreqDict[guessWord[i]] + 1;
+            wordFreqDict[guessWord[i]]++;
         else
             wordFreqDict[guessWord[i]] = 1;
     }
@@ -92,17 +95,30 @@ function hiddenGuessWord(){
     let hiddenWord = [];
     for (let i = 0; i < guessWord.length; i++)
         hiddenWord.push("_");
-
-    return hiddenWord.join(" ");
+    return hiddenWord;
 }
 
-function displayPlayerGuess(){
-    let hiddenWord = hiddenGuessWord();
-    for (let i = 0; i < numOfLetter.length; i++)
-        hiddenWord.replace(hiddenWord[numOfLetter[i]], guessWord[i]);
+// function displayPlayerGuess(){
+//     let hiddenWord = hiddenGuessWord();
+//     for (let i = 0; i < numOfLetter.length; i++)
+//         hiddenWord.replace(hiddenWord[numOfLetter[i]], guessWord[i]);
+// }
+
+function displayPlayerGuess(playerGuessLetter){
+    // console.log(playerGuessLetter)
+    // console.log(playerGuess)
+    for (let i = 0; i < playerGuess.length; i++){
+        console.log(guessWord.charAt(i))
+        if (guessWord.charAt(i) == playerGuessLetter){
+            playerGuess[i] = playerGuessLetter;
+        }
+    }
+    // console.log(playerGuess)
+    document.querySelector("h2").innerHTML = playerGuess.join(" ");
 }
+
 createButtons();
-document.querySelector("h2").innerHTML = hiddenGuessWord();
+document.querySelector("h2").innerHTML = hiddenGuessWord().join(" ");
 
 // function appendWord(word) {
 //     for (i=0; i<word.length; i++) {
