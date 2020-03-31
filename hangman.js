@@ -3,15 +3,16 @@ let playerGuess = hiddenGuessWord();
 let myHangMan = new MyHangman("image/hang.png");
 let countClick = 0;
 let score = 0;
+let btnArr = [];
 // object constructor
 function Button(color, letter) {
     this.letterBtn = document.createElement("button");
     this.letterBtn.style.backgroundColor = color;
     this.letterBtn.innerHTML = letter;
     this.letterBtn.className = "myButtons";
+    this.letterBtn.disabled = false;
     this.letterBtn.onclick = function () {
-        checkLetter(letter);
-        // numOfLetter = showNumOfLetters(letter);
+        checkLetter(letter)
     }
     document.body.appendChild(this.letterBtn);
 }
@@ -26,6 +27,7 @@ function createButtons() {
 
     for (let i = 0; i < 26; i++) {
         let btn = new Button(colorArr[i], alphabet[i]);
+        btnArr.push(btn);
     }
 }
 // create randomWord
@@ -49,10 +51,10 @@ function MyHangman(url) {
 function checkLetter(buttonLetter) {
     if (guessWord.indexOf(buttonLetter) > -1) {
         let wordDict = checkNumOfOccurrences();
-        // console.log(wordDict)
         score += wordDict[buttonLetter];
         document.querySelector("p").innerHTML = "Score: " + score;
         displayPlayerGuess(buttonLetter);
+        disableButton(buttonLetter);
     }
     else {
         countClick += 1;
@@ -80,16 +82,6 @@ function checkNumOfOccurrences() {
     }
     return wordFreqDict;
 }
-// find the position of letter in a guessWord
-function showNumOfLetters(letter){
-    let storeIndex = [];
-    for (let i = 0; i < guessWord.length; i++){
-        if(letter == guessWord[i])
-            storeIndex.push(i);
-    }
-    return storeIndex;
-}
-// console.log(guessWord);
 
 function hiddenGuessWord(){
     let hiddenWord = [];
@@ -98,52 +90,20 @@ function hiddenGuessWord(){
     return hiddenWord;
 }
 
-// function displayPlayerGuess(){
-//     let hiddenWord = hiddenGuessWord();
-//     for (let i = 0; i < numOfLetter.length; i++)
-//         hiddenWord.replace(hiddenWord[numOfLetter[i]], guessWord[i]);
-// }
-
 function displayPlayerGuess(playerGuessLetter){
-    // console.log(playerGuessLetter)
-    // console.log(playerGuess)
     for (let i = 0; i < playerGuess.length; i++){
         console.log(guessWord.charAt(i))
         if (guessWord.charAt(i) == playerGuessLetter){
             playerGuess[i] = playerGuessLetter;
         }
     }
-    // console.log(playerGuess)
     document.querySelector("h2").innerHTML = playerGuess.join(" ");
 }
-
+function disableButton(buttonLetter){
+    for (let i = 0; i < btnArr.length; i++){
+        if (btnArr[i].letterBtn.innerHTML === buttonLetter)
+            btnArr[i].letterBtn.disabled = true;
+    }
+}
 createButtons();
 document.querySelector("h2").innerHTML = hiddenGuessWord().join(" ");
-
-// function appendWord(word) {
-//     for (i=0; i<word.length; i++) {
-//         let miniBox = document.createElement("div")
-//         document.getElementById("wordbox").appendChild(miniBox);
-//         miniBox.append(word[i])
-//         miniBox.style.borderBottom = "3px solid black"
-//         miniBox.style.fontSize = "40px";
-//         miniBox.style.textAlign = "center";
-//         miniBox.style.width = "50px";
-//         miniBox.style.height = "50px";
-//         miniBox.style.float = "left";
-//         miniBox.style.marginRight = "10px";
-//         miniBox.className = word[i].toLowerCase();
-//         miniBox.style.color = "white"
-//     }
-// }
-
-// function changeColor(btn) {
-//     let letter = btn.innerHTML.toLowerCase();
-//     let words = document.getElementsByClassName(letter);
-//     for (i=0; i<words.length; i++) {
-//         words[i].style.color = "black";
-//     }
-// }
-
-// appendWord(word);
-// createButtons();
