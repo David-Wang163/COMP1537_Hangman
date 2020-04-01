@@ -2,7 +2,7 @@ let guessWord = randomWord();
 let playerGuess = hiddenGuessWord();
 let myHangMan = new MyHangman("image/hang.png");
 let countClick = 0;
-let score = 0;
+let Attempt = 7;
 let btnArr = [];
 // object constructor
 function Button(color, letter) {
@@ -51,25 +51,28 @@ function MyHangman(url) {
 function checkLetter(buttonLetter) {
     if (guessWord.indexOf(buttonLetter) > -1) {
         let wordDict = checkNumOfOccurrences();
-        score += wordDict[buttonLetter];
-        document.querySelector("p").innerHTML = "Score: " + score;
+        document.querySelector("p").innerHTML = "Attempt: " + Attempt;
         displayPlayerGuess(buttonLetter);
         disableButton(buttonLetter);
     }
     else {
         countClick += 1;
         changeStageOfHangMan();
-        score -= 1;
-        document.querySelector("p").innerHTML = "Score: " + score;
+        Attempt -= 1;
+        document.querySelector("p").innerHTML = "Attempt: " + Attempt;
     }
 }
 // if players does not get the word correct
+
 function changeStageOfHangMan() {
-    if (countClick === 7) {
+    if (countClick < 7) {
         myHangMan.changeStage("image/stage" + countClick + ".png");
-        document.querySelector("result").innerHTML = "You lost";
+
     }
-    else myHangMan.changeStage("image/stage" + countClick + ".png");
+    else {
+        myHangMan.changeStage("image/stage7.png");
+        gameStatus()
+    }
 }
 // check word frequency
 function checkNumOfOccurrences() {
@@ -83,24 +86,31 @@ function checkNumOfOccurrences() {
     return wordFreqDict;
 }
 
-function hiddenGuessWord(){
+function gameStatus() {
+    document.getElementById("result").textContent = "You Lose! the word was " + guessWord
+    for (let i = 0; i < btnArr.length; i++) {
+        btnArr[i].letterBtn.disabled = true;
+    }
+}
+
+function hiddenGuessWord() {
     let hiddenWord = [];
     for (let i = 0; i < guessWord.length; i++)
         hiddenWord.push("_");
     return hiddenWord;
 }
 
-function displayPlayerGuess(playerGuessLetter){
-    for (let i = 0; i < playerGuess.length; i++){
+function displayPlayerGuess(playerGuessLetter) {
+    for (let i = 0; i < playerGuess.length; i++) {
         console.log(guessWord.charAt(i))
-        if (guessWord.charAt(i) == playerGuessLetter){
+        if (guessWord.charAt(i) == playerGuessLetter) {
             playerGuess[i] = playerGuessLetter;
         }
     }
     document.querySelector("h2").innerHTML = playerGuess.join(" ");
 }
-function disableButton(buttonLetter){
-    for (let i = 0; i < btnArr.length; i++){
+function disableButton(buttonLetter) {
+    for (let i = 0; i < btnArr.length; i++) {
         if (btnArr[i].letterBtn.innerHTML === buttonLetter)
             btnArr[i].letterBtn.disabled = true;
     }
