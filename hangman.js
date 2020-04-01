@@ -4,6 +4,7 @@ let myHangMan = new MyHangman("image/hang.png");
 let countClick = 0;
 let Attempt = 7;
 let btnArr = [];
+let score = 0;
 // object constructor
 function Button(color, letter) {
     this.letterBtn = document.createElement("button");
@@ -51,7 +52,9 @@ function MyHangman(url) {
 function checkLetter(buttonLetter) {
     if (guessWord.indexOf(buttonLetter) > -1) {
         let wordDict = checkNumOfOccurrences();
-        document.querySelector("p").innerHTML = "Attempt: " + Attempt;
+        document.querySelector("#attempt").innerHTML = "Attempt: " + Attempt;
+        score += wordDict[buttonLetter];
+        document.querySelector("#result").innerHTML = "Score: " + score;
         displayPlayerGuess(buttonLetter);
         disableButton(buttonLetter);
     }
@@ -59,7 +62,9 @@ function checkLetter(buttonLetter) {
         countClick += 1;
         changeStageOfHangMan();
         Attempt -= 1;
-        document.querySelector("p").innerHTML = "Attempt: " + Attempt;
+        document.querySelector("#attempt").innerHTML = "Attempt: " + Attempt;
+        score -= 1;
+        document.querySelector("#result").innerHTML = "Score: " + score;
     }
 }
 // if players does not get the word correct
@@ -102,7 +107,7 @@ function hiddenGuessWord() {
 
 function displayPlayerGuess(playerGuessLetter) {
     for (let i = 0; i < playerGuess.length; i++) {
-        console.log(guessWord.charAt(i))
+        // console.log(guessWord.charAt(i))
         if (guessWord.charAt(i) == playerGuessLetter) {
             playerGuess[i] = playerGuessLetter;
         }
@@ -114,6 +119,9 @@ function disableButton(buttonLetter) {
         if (btnArr[i].letterBtn.innerHTML === buttonLetter)
             btnArr[i].letterBtn.disabled = true;
     }
+}
+function restart(){
+    window.location.reload();
 }
 createButtons();
 document.querySelector("h2").innerHTML = hiddenGuessWord().join(" ");
