@@ -1,0 +1,71 @@
+/* #letters {
+    margin-top: 200px;
+    float: left;
+    width: 300px;
+}
+
+.letters {
+    width: 50px;
+    height: 50px;
+}
+
+#wordbox {
+    border-style: dotted;
+    position: absolute;
+    width: 600px;
+    height: 200px;
+    top: 0px;
+    right: 0px;
+    margin-top: 200px;
+} */
+
+
+
+.myButtons {
+    position: relative;
+    width: 60px;
+    height: 40px;
+    color: #FFFFFF;
+    font-family: cursive;
+    font-size: 32px;
+    line-height: 37px;
+    background: #7A4675;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    margin-left:25px;
+    margin-top: 10px;
+}
+
+.hangMan{
+    position: relative;
+    height: 15%;
+    width: 15%;
+    top: 50%;
+    left: 0%;
+    z-index: -1;
+}
+
+#btns{
+    position: absolute;
+    top: 10%;
+    left: 20%;
+}
+
+#messageToPlayer{
+    position: absolute;
+    top: 0%;
+    left: 46%;
+}
+
+#hiddenword{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+}
+
+/* #hintForPlayer{
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    text-align: center;
+} */
