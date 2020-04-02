@@ -5,12 +5,9 @@ let score = 0;
 let btnArr = [];
 let listOfWords = [];
 createGuessWord();
-createButtons();
 let guessWord = randomWord();
 let guessWordInUpperCase = guessWord.guessWord.toUpperCase();
-let splitGuessWord = guessWordInUpperCase.split("");
 let playerGuess = hiddenGuessWord();
-console.log(guessWordInUpperCase)
 // object constructor
 function Button(color, letter) {
     this.letterBtn = document.createElement("button");
@@ -48,7 +45,8 @@ function createGuessWord() {
         'the combined action of a group of people, especially when effective and efficient.',
         'the condition that distinguishes animals and plants from inorganic matter, including the capacity for growth, reproduction, functional activity, and continual change preceding death.',
         'a domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, nonretractable claws, and a barking, howling, or whining voice.',
-        'a small domesticated carnivorous mammal with soft fur, a short snout, and retractable claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.']
+        'a small domesticated carnivorous mammal with soft fur, a short snout, and retractable claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.'];
+
     for (let i = 0; i < wordList.length; i++) {
         let word = new GuessWordAndDefinition(wordList[i], definition[i]);
         listOfWords.push(word);
@@ -75,8 +73,8 @@ function MyHangman(url) {
 }
 // function to check if player guesses correct letter in randomWord
 function checkLetter(buttonLetter) {
+    let wordDict = checkNumOfOccurrences();
     if (guessWordInUpperCase.indexOf(buttonLetter) > -1) {
-        let wordDict = checkNumOfOccurrences();
         document.querySelector("#attempt").innerHTML = "Attempt: " + Attempt;
         score += wordDict[buttonLetter];
         document.querySelector("#score").innerHTML = "Score: " + score;
@@ -130,6 +128,8 @@ function hiddenGuessWord() {
 
 function displayPlayerGuess(playerGuessLetter) {
     let h2Tag = document.querySelector("h2");
+    let splitGuessWord = guessWordInUpperCase.split("");
+
     for (let i = 0; i < playerGuess.length; i++) {
         if (guessWordInUpperCase.charAt(i) == playerGuessLetter) {
             playerGuess[i] = playerGuessLetter;
@@ -154,4 +154,5 @@ function hint(){
     document.querySelector("#hintForPlayer").innerHTML = "Definition: " + guessWord.wordDefinition;
     document.querySelector("#hint").disabled = true;
 }
+createButtons();
 document.querySelector("h2").innerHTML = hiddenGuessWord().join(" ");
