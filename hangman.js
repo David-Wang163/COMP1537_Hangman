@@ -1,4 +1,5 @@
 let guessWord = randomWord();
+let splitGuessWord = guessWord.split("");
 let playerGuess = hiddenGuessWord();
 let myHangMan = new MyHangman("image/hang.png");
 let countClick = 0;
@@ -54,7 +55,7 @@ function checkLetter(buttonLetter) {
         let wordDict = checkNumOfOccurrences();
         document.querySelector("#attempt").innerHTML = "Attempt: " + Attempt;
         score += wordDict[buttonLetter];
-        document.querySelector("#result").innerHTML = "Score: " + score;
+        document.querySelector("#score").innerHTML = "Score: " + score;
         displayPlayerGuess(buttonLetter);
         disableButton(buttonLetter);
     }
@@ -64,15 +65,13 @@ function checkLetter(buttonLetter) {
         Attempt -= 1;
         document.querySelector("#attempt").innerHTML = "Attempt: " + Attempt;
         score -= 1;
-        document.querySelector("#result").innerHTML = "Score: " + score;
+        document.querySelector("#score").innerHTML = "Score: " + score;
     }
 }
 // if players does not get the word correct
-
 function changeStageOfHangMan() {
     if (countClick < 7) {
         myHangMan.changeStage("image/stage" + countClick + ".png");
-
     }
     else {
         myHangMan.changeStage("image/stage7.png");
@@ -92,7 +91,7 @@ function checkNumOfOccurrences() {
 }
 
 function gameStatus() {
-    document.getElementById("result").textContent = "You Lose! the word was " + guessWord
+    document.getElementById("messageToPlayer").textContent = "You Lose! the word was " + guessWord
     for (let i = 0; i < btnArr.length; i++) {
         btnArr[i].letterBtn.disabled = true;
     }
@@ -106,13 +105,16 @@ function hiddenGuessWord() {
 }
 
 function displayPlayerGuess(playerGuessLetter) {
+    let h2Tag = document.querySelector("h2");
     for (let i = 0; i < playerGuess.length; i++) {
         // console.log(guessWord.charAt(i))
         if (guessWord.charAt(i) == playerGuessLetter) {
             playerGuess[i] = playerGuessLetter;
         }
     }
-    document.querySelector("h2").innerHTML = playerGuess.join(" ");
+    h2Tag.innerHTML = playerGuess.join(" ");
+    if (h2Tag.innerHTML === splitGuessWord.join(" ") && Attempt > 0)
+        document.querySelector("#messageToPlayer").innerHTML = "Congratulations!!! You win";
 }
 function disableButton(buttonLetter) {
     for (let i = 0; i < btnArr.length; i++) {
@@ -120,7 +122,7 @@ function disableButton(buttonLetter) {
             btnArr[i].letterBtn.disabled = true;
     }
 }
-function restart(){
+function restart() {
     window.location.reload();
 }
 createButtons();
