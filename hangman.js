@@ -1,11 +1,16 @@
-let guessWord = randomWord();
-let splitGuessWord = guessWord.split("");
-let playerGuess = hiddenGuessWord();
 let myHangMan = new MyHangman("image/hang.png");
 let countClick = 0;
 let Attempt = 7;
-let btnArr = [];
 let score = 0;
+let btnArr = [];
+let listOfWords = [];
+createGuessWord();
+createButtons();
+let guessWord = randomWord();
+let guessWordInUpperCase = guessWord.guessWord.toUpperCase();
+let splitGuessWord = guessWordInUpperCase.split("");
+let playerGuess = hiddenGuessWord();
+console.log(guessWordInUpperCase)
 // object constructor
 function Button(color, letter) {
     this.letterBtn = document.createElement("button");
@@ -18,7 +23,6 @@ function Button(color, letter) {
     }
     document.body.appendChild(this.letterBtn);
 }
-
 function createButtons() {
     // all of the letters
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -33,11 +37,31 @@ function createButtons() {
     }
 }
 // create randomWord
+function createGuessWord() {
+    let wordList = ['committee', 'Tattoo', 'electricity', 'computer', 'InternetOfThings', 'OOP', 'teamwork', 'life', 'dog', 'cat'];
+    let definition = ['a group of people appointed for a specific function, typically consisting of members of a larger group.',
+        'a form of body modification where a design is made by inserting ink',
+        'is the set of physical phenomena associated with the presence and motion of electric charge.',
+        'an electronic device for storing and processing data, typically in binary form, according to instructions given to it in a variable program.',
+        'the interconnection via the Internet of computing devices embedded in everyday objects, enabling them to send and receive data.',
+        ' a programming paradigm based on the concept of objects',
+        'the combined action of a group of people, especially when effective and efficient.',
+        'the condition that distinguishes animals and plants from inorganic matter, including the capacity for growth, reproduction, functional activity, and continual change preceding death.',
+        'a domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, nonretractable claws, and a barking, howling, or whining voice.',
+        'a small domesticated carnivorous mammal with soft fur, a short snout, and retractable claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.']
+    for (let i = 0; i < wordList.length; i++) {
+        let word = new GuessWordAndDefinition(wordList[i], definition[i]);
+        listOfWords.push(word);
+    }
+}
 function randomWord() {
-    let wordList = ['George', 'David', 'Xavier', 'Saida'];
-    let randomIndex = Math.floor(Math.random() * wordList.length);
-    let word = wordList[randomIndex].toUpperCase();
-    return word
+    let randomIndex = Math.floor(Math.random() * listOfWords.length);
+    let word = listOfWords[randomIndex];
+    return word;
+}
+function GuessWordAndDefinition(word, definition) {
+    this.guessWord = word;
+    this.wordDefinition = definition;
 }
 // create hangman
 function MyHangman(url) {
@@ -51,7 +75,7 @@ function MyHangman(url) {
 }
 // function to check if player guesses correct letter in randomWord
 function checkLetter(buttonLetter) {
-    if (guessWord.indexOf(buttonLetter) > -1) {
+    if (guessWordInUpperCase.indexOf(buttonLetter) > -1) {
         let wordDict = checkNumOfOccurrences();
         document.querySelector("#attempt").innerHTML = "Attempt: " + Attempt;
         score += wordDict[buttonLetter];
@@ -81,17 +105,17 @@ function changeStageOfHangMan() {
 // check word frequency
 function checkNumOfOccurrences() {
     let wordFreqDict = {};
-    for (let i = 0; i < guessWord.length; i++) {
-        if (guessWord[i] in wordFreqDict)
-            wordFreqDict[guessWord[i]]++;
+    for (let i = 0; i < guessWordInUpperCase.length; i++) {
+        if (guessWordInUpperCase[i].toUpperCase() in wordFreqDict)
+            wordFreqDict[guessWordInUpperCase[i]]++;
         else
-            wordFreqDict[guessWord[i]] = 1;
+            wordFreqDict[guessWordInUpperCase[i]] = 1;
     }
     return wordFreqDict;
 }
 
 function gameStatus() {
-    document.getElementById("messageToPlayer").textContent = "You Lose! the word was " + guessWord
+    document.getElementById("messageToPlayer").textContent = "You Lose! the word was " + guessWordInUpperCase;
     for (let i = 0; i < btnArr.length; i++) {
         btnArr[i].letterBtn.disabled = true;
     }
@@ -99,7 +123,7 @@ function gameStatus() {
 
 function hiddenGuessWord() {
     let hiddenWord = [];
-    for (let i = 0; i < guessWord.length; i++)
+    for (let i = 0; i < guessWordInUpperCase.length; i++)
         hiddenWord.push("_");
     return hiddenWord;
 }
@@ -107,8 +131,7 @@ function hiddenGuessWord() {
 function displayPlayerGuess(playerGuessLetter) {
     let h2Tag = document.querySelector("h2");
     for (let i = 0; i < playerGuess.length; i++) {
-        // console.log(guessWord.charAt(i))
-        if (guessWord.charAt(i) == playerGuessLetter) {
+        if (guessWordInUpperCase.charAt(i) == playerGuessLetter) {
             playerGuess[i] = playerGuessLetter;
         }
     }
@@ -122,8 +145,13 @@ function disableButton(buttonLetter) {
             btnArr[i].letterBtn.disabled = true;
     }
 }
+
 function restart() {
     window.location.reload();
 }
-createButtons();
+
+function hint(){
+    document.querySelector("#hintForPlayer").innerHTML = "Definition: " + guessWord.wordDefinition;
+    document.querySelector("#hint").disabled = true;
+}
 document.querySelector("h2").innerHTML = hiddenGuessWord().join(" ");
