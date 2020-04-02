@@ -19,53 +19,29 @@
     margin-top: 200px;
 } */
 
-
-
 .myButtons {
     position: relative;
-    width: 60px;
-    height: 40px;
+    width: 70px;
+    height: 50px;
     color: #FFFFFF;
     font-family: cursive;
-    font-size: 32px;
-    line-height: 37px;
+    font-size: 36px;
+    line-height: 45px;
     background: #7A4675;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 24px;
-    margin-left:25px;
+    margin-left:20px;
     margin-top: 10px;
 }
-
+.guessWord{
+    font-size: 70px;
+    top: 250px;
+    left: 264px;
+}
 .hangMan{
-    position: relative;
-    height: 15%;
-    width: 15%;
-    top: 50%;
-    left: 0%;
-    z-index: -1;
-}
-
-#btns{
     position: absolute;
-    top: 10%;
-    left: 20%;
+    height: 120px;
+    width: 70px;
+    top: 350px;
+    left: 240px;
 }
-
-#messageToPlayer{
-    position: absolute;
-    top: 0%;
-    left: 46%;
-}
-
-#hiddenword{
-    position: absolute;
-    top: 80%;
-    left: 50%;
-}
-
-/* #hintForPlayer{
-    position: absolute;
-    top: 32%;
-    left: 50%;
-    text-align: center;
-} */
