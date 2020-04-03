@@ -18,7 +18,7 @@ function Button(color, letter) {
     this.letterBtn.onclick = function () {
         checkLetter(letter)
     }
-    document.body.appendChild(this.letterBtn);
+    document.getElementById("btns").appendChild(this.letterBtn);
 }
 function createButtons() {
     // all of the letters
@@ -43,9 +43,9 @@ function createGuessWord() {
         'the interconnection via the Internet of computing devices embedded in everyday objects, enabling them to send and receive data.',
         ' a programming paradigm based on the concept of objects',
         'the combined action of a group of people, especially when effective and efficient.',
-        'the condition that distinguishes animals and plants from inorganic matter, including the capacity for growth, reproduction, functional activity, and continual change preceding death.',
+        'the condition that distinguishes animals and plants from inorganic matter.',
         'a domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, nonretractable claws, and a barking, howling, or whining voice.',
-        'a small domesticated carnivorous mammal with soft fur, a short snout, and retractable claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.'];
+        'a small domesticated carnivorous mammal with soft fur, a short snout, and retractable claws.'];
 
     for (let i = 0; i < wordList.length; i++) {
         let word = new GuessWordAndDefinition(wordList[i], definition[i]);
@@ -151,7 +151,7 @@ function restart() {
 }
 
 function hint(){
-    document.querySelector("#hintForPlayer").innerHTML = "Definition: " + guessWord.wordDefinition;
+    document.querySelector("#messageToPlayer").innerHTML = "Definition: " + guessWord.wordDefinition;
     document.querySelector("#hint").disabled = true;
 }
 createButtons();

@@ -13,10 +13,15 @@
     <p id="score">Score: 0</p>
     <p id="attempt">Attempt: 7</p>
     <p id="messageToPlayer"></p>
-    <p id="hintForPlayer">Definition: [click hint button]</p>
-    <h2></h2>
-    <button id="restart" onclick="restart()">Restart</button>
-    <button id="hint" onclick="hint()">Hint</button>
+    <h2 id="hiddenword"></h2>
+    <div id="imgs"></div>
+    <p></p>
+    <div id="btns"></div>
+    <div id="clickable">
+        <button id="restart" onclick="restart()">Restart</button>
+        <button id="hint" onclick="hint()">Hint</button>
+    </div>
+
     <script src="hangman.js"></script>
 
 </body>
