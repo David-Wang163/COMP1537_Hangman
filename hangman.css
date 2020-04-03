@@ -1,32 +1,9 @@
-/* #letters {
-    margin-top: 200px;
-    float: left;
-    width: 300px;
-}
-
-.letters {
-    width: 50px;
-    height: 50px;
-}
-
-#wordbox {
-    border-style: dotted;
-    position: absolute;
-    width: 600px;
-    height: 200px;
-    top: 0px;
-    right: 0px;
-    margin-top: 200px;
-} */
-
-
-
 .myButtons {
     position: relative;
     width: 60px;
     height: 40px;
     color: #FFFFFF;
-    font-family: cursive;
+    font-family: monospace;
     font-size: 32px;
     line-height: 37px;
     background: #7A4675;
@@ -34,12 +11,13 @@
     border-radius: 24px;
     margin-left:25px;
     margin-top: 10px;
+    text-align: center;
 }
 
 .hangMan{
     position: relative;
-    height: 15%;
-    width: 15%;
+    height: 25%;
+    width: 20%;
     top: 50%;
     left: 0%;
     z-index: -1;
@@ -55,6 +33,7 @@
     position: absolute;
     top: -1%;
     left: 20%;
+    color: salmon;
 }
 
 #hiddenword{
@@ -67,11 +46,30 @@
     position: absolute;
     top: 80%;
     left: 5%;
-    font-family: cursive;
+    width: 70px;
+    height: 35px;
+    font-family: monospace;
+    font-size: x-large;
+    background: steelblue;
+    color: whitesmoke;
+    text-align: center;
 
 }
 
 #restart{
-    font-family: cursive;
+    font-family: monospace;
+    width: 70px;
+    height: 35px;
+    font-size: medium;
+    background: tan;
+    color: whitesmoke;
+    text-align: center;
 }
 
+#score{
+    color: darkred;
+}
+
+#attempt{
+    color: firebrick;
+}

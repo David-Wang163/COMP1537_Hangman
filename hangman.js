@@ -136,8 +136,12 @@ function displayPlayerGuess(playerGuessLetter) {
         }
     }
     h2Tag.innerHTML = playerGuess.join(" ");
-    if (h2Tag.innerHTML === splitGuessWord.join(" ") && Attempt > 0)
+    if (h2Tag.innerHTML === splitGuessWord.join(" ") && Attempt > 0) {
         document.querySelector("#messageToPlayer").innerHTML = "Congratulations!!! You win";
+        for (let i = 0; i < btnArr.length; i++) {
+            btnArr[i].letterBtn.disabled = true;
+        }
+    }
 }
 function disableButton(buttonLetter) {
     for (let i = 0; i < btnArr.length; i++) {
@@ -150,7 +154,7 @@ function restart() {
     window.location.reload();
 }
 
-function hint(){
+function hint() {
     document.querySelector("#messageToPlayer").innerHTML = "Definition: " + guessWord.wordDefinition;
     document.querySelector("#hint").disabled = true;
 }
